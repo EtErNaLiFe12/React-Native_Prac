@@ -1,21 +1,90 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from 'react'
+import { View, Image, StatusBar, Dimensions } from 'react-native'
+import Swiper from 'react-native-swiper'
+const { width, height } = Dimensions.get('window')
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+const styles = {
+  wrapper: {
+    // backgroundColor: '#f00'
+  },
+
+  slide: {
+    flex: 1,
+    backgroundColor: 'transparent'
+  },
+  container: {
+    flex: 1
+  },
+
+  imgBackground: {
+    width,
+    height,
+    backgroundColor: 'transparent',
+    position: 'absolute'
+  },
+
+  image: {
+    width,
+    height
+  }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default class extends Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <StatusBar barStyle="light-content" />
+        <Image source={require('./assets/bg.jpg')} style={styles.imgBackground} />
+        <Swiper
+          style={styles.wrapper}
+          dot={
+            <View
+              style={{
+                backgroundColor: 'rgba(255,255,255,.3)',
+                width: 13,
+                height: 13,
+                borderRadius: 7,
+                marginLeft: 7,
+                marginRight: 7
+              }}
+            />
+          }
+          activeDot={
+            <View
+              style={{
+                backgroundColor: '#fff',
+                width: 13,
+                height: 13,
+                borderRadius: 7,
+                marginLeft: 7,
+                marginRight: 7
+              }}
+            />
+          }
+          paginationStyle={{
+            bottom: 70
+          }}
+          loop={false}
+        >
+          <View style={styles.slide}>
+            <Image
+              style={styles.image}
+              source={require('./assets/1.jpg')}
+              resizeMode="cover"
+            />
+          </View>
+          <View style={styles.slide}>
+            <Image
+              style={styles.image}
+              source={require('./assets/2.jpg')}
+              resizeMode="cover"
+            />
+          </View>
+          <View style={styles.slide}>
+            <Image style={styles.image} source={require('./assets/3.jpg')} />
+          </View>
+        </Swiper>
+      </View>
+    )
+  }
+}
